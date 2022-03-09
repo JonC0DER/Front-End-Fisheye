@@ -1,0 +1,293 @@
+#main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#contact_modal {
+    display:none;
+    position: fixed;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.8);
+}
+
+.photograph-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #FAFAFA;
+    height: 300px;
+    margin: 0 100px;
+}
+.infos .photographer-infos .photographer_name {
+    font-size: 64px;
+    line-height: 83px;
+}
+.infos .photographer-infos .location{
+    font-size: 24px;
+    line-height: 31px;
+}
+.infos .photographer-infos .tagline{
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.contact_button , #trie, #trie option{
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal {
+    border-radius: 5px;
+    background-color: #DB8876;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px;
+    margin: auto;
+}
+
+.modal header {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.modal header img {
+    cursor: pointer;
+}
+
+.modal header h2 {
+    font-size: 64px;
+    font-weight: normal;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+form label {
+    color: #312E2E;
+    font-size: 36px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: self-start;
+    margin-bottom: 26px;
+}
+
+form input, form textarea {
+    width: 100%;
+    height: 68px;
+    border: none;
+    border-radius: 5px;
+}
+
+form textarea {
+    height: 150px;
+}
+
+.album{
+    width:90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: auto;
+    margin-bottom: 80px;
+}
+
+.album figure{
+    width:27%;
+    height: fit-content;
+    transition: all .3s;
+}
+
+.album figure:hover{
+    transform: scale(1.1);
+}
+
+.album figure img,
+.album figure video{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.album figure figcaption{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+    color: #901C1C;
+}
+.album figure figcaption *{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.album figure figcaption .likes-content{
+    cursor: pointer;
+}
+
+.album figure figcaption .likes,
+.album figure figcaption .title{
+    font-size: 24px;
+    line-height: 31px;
+}
+
+.album figure figcaption .title{
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 75%;
+}
+
+.album figure figcaption .likes{
+    font-weight: 500;
+    margin-right: 5px;
+}
+/* -------------- total likes */
+.total_likes-price * {
+    margin:0;
+    padding: 0;
+}
+.total_likes-price {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width:300px;
+    padding: 25px;
+    background-color: #DB8876;
+    position:fixed;
+    bottom: 0;
+    right:15px;
+    display: flex;
+    justify-content: space-between;
+}
+ .total_likes-price .total_likes,
+ .total_likes-price .price{
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 31px;
+ }
+/* -------------- lightbox-modal */
+.lightBox {
+    position: fixed;
+    top:0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FAFAFA;
+}
+
+.lightBox i{
+    position: absolute;
+    right:15px;
+    top:15px;
+    font-size: 40px;
+    color: #901C1C;
+}
+
+.lightBox figure{
+    display:none;
+    width: 80%;
+    height: 80%;
+}
+
+.lightBox figure.active{
+    display:block;
+    animation:coming .2s ease 0s;
+}
+
+@keyframes coming {
+    0%{
+        transform: scale(0.5);
+        opacity: 0;
+    }100%{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.lightBox figure figcaption .likes-content{
+    display:none;
+}
+
+.lightBox .previous,
+.lightBox .next{
+    width: 70px;
+    height: 80px;
+    position: relative;
+}
+
+.lightBox .previous::before,
+.lightBox .next::after{
+    content: "";
+    cursor: pointer;
+    position:absolute;
+    width:30px;
+    height: 30px;
+    border-bottom: 8px solid #901C1C;
+    top:23px;
+    transition: all .3s;
+}
+
+.lightBox .previous::before{
+    border-left: 8px solid #901C1C;
+    left:20px;
+    transform: rotate(45deg) scale(1);
+}
+
+.lightBox .next::after{
+    border-right: 8px solid #901C1C;
+    right:20px;
+    transform: rotate(-45deg) scale(1);
+}
+
+.lightBox .previous:hover{
+    animation: go .9s linear 0s alternate-reverse infinite;
+}
+.lightBox .next:hover{
+    animation: go .9s linear 0s alternate infinite;
+}
+@keyframes go {
+    0%{
+        transform:translate(-15px);
+    }
+    100%{
+        transform:translate(15px);
+    }
+}
+
+.lightBox figure img ,
+.lightBox figure video {
+    object-fit: cover;
+    width: 100%;
+    height:100%;
+}
+
+.lightBox figure figcaption .title{
+    color:#901C1C;
+}
