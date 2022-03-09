@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/trie.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <title>Fisheye - photographe </title>
+  </head>
+  <body>
+    <header>
+      <img src="assets/images/logo.png" class="logo" />
+    </header>
+    <main id="main">
+      <div class="photograph-header">
+        <div class="infos"></div>
+        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <div class="photographer-avatar"></div>
+      </div>
+      <div class="trie_album">
+        <label for="trie">Trier par </label>
+        <select name="trie" id="trie">
+          <option value="popularite">Popularité</option>
+          <option value="date">Date</option>
+          <option value="titre">Titre</option>
+        </select>
+        <div class="trie_fake"></div>
+      </div>
+      <div class="album"> </div>
+      <div class="total_likes-price">
+        <p class="total_likes">
+          <span class="likes"></span>
+          <i class="fas fa-heart"></i>
+        </p>
+      </div>
+    </main>
+    <div id="contact_modal">
+			<div class="modal">
+				<header>
+          <h2>Contactez-moi</h2>
+          <img src="assets/icons/close.svg" onclick="closeModal()" />
+        </header>
+				<form>
+					<div>
+						<label for="first">Prénom</label>
+						<input type="text" pattern="[a-z]{2,20}" 
+            title="Votre Prénom en minuscule"/>
+						<label for='last'>Nom</label>
+						<input type="text" id="last" pattern="[a-z]{2,20}"
+            title="Votre Nom en minuscule"/>
+						<label for="email">Email</label>
+						<input type="email" id="email"/>
+						<label>Votre message</label>
+						<textarea type="text" maxlength="300" minlength="30"></textarea>
+					</div>
+          <button class="contact_button">Envoyer</button>
+				</form>
+			</div>
+		</div>
+    <script src="scripts/factories/photographer.js"></script>
+    <script src="scripts/factories/albums.js"></script>
+    <script src="scripts/factories/closeupView.js"></script>
+    <script src="scripts/factories/sortAlbum.js"></script>
+    <script src="scripts/pages/fetchData.js"></script>
+    <script src="scripts/pages/photographer.js"></script>
+    <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/utils/selectSort.js"></script>
+  </body>
+</html>
