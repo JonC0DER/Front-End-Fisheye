@@ -13,6 +13,7 @@ function selectElemBuilder(){
     let selectLike = document.createElement('div');
     selectLike.textContent = options[0].textContent;
     selectLike.setAttribute('class', 'select-options');
+    selectLike.setAttribute('onclick', 'getSelectedValue()');
 
     let items = document.createElement('div');
     items.setAttribute('class', `select-items ${hideItems}`);
