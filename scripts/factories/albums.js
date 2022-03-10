@@ -14,7 +14,6 @@ function albumFactory(data, name, identifiant) {
             }else{
                 const videoTag = document.createElement('video');
                 videoTag.setAttribute('src', `${path}/${video}`);
-                //videoTag.setAttribute('controls', '');
                 figure.appendChild(videoTag);
             }
             const figcaption = document.createElement('figcaption');
