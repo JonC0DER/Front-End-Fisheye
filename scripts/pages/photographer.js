@@ -135,6 +135,28 @@ function closeLightBox() {
     initVideo();
 }
 
+function getSelectedValue(){
+    const select = document.querySelector('#trie');
+    const selectFakeOptions = document.querySelector('.select-items');
+    const options = ["popularite", "date", "titre"];
+
+    for (let i = 0; i < selectFakeOptions.children.length; i++) {
+       selectFakeOptions.children[i].addEventListener('click', reorganize);
+    }
+
+    function reorganize() {
+        const setEvent = sortAlbumFactory();
+        if (select.value == options[0]) {
+            setEvent.byPopularity();
+        } else if (select.value == options[1]) {    
+            setEvent.byDate();
+        } else if (select.value == options[2]) {
+            setEvent.byAlphaOrder();
+        }   
+    }
+    
+}
+
 async function albumInit(){
     const get = location.search.split('=');
     const articleId = Number(get[1].split('&')[0]);
