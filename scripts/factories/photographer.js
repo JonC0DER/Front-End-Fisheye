@@ -11,6 +11,7 @@ function photographerFactory(data, identifiant = null) {
         article.name = name;
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
+        img.setAttribute("alt", name);
         img.className = 'photographer_avatar';
         const h2 = document.createElement( 'h2' );
         h2.className = 'photographer_name';
