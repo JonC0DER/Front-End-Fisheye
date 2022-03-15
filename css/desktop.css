@@ -1,0 +1,7 @@
+@media  screen and (min-width: 992px) {
+    body{
+        max-width: 1600px;
+        width:100%;
+        margin: auto;
+    }
+}
