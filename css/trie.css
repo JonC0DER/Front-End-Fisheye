@@ -92,5 +92,6 @@
 
 .select-items div:hover,
 .select-option-selected{
-  background: #D3573C;
+  background: #DB8876;
+  color:black;
 }
