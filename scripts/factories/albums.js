@@ -10,10 +10,14 @@ function albumFactory(data, name, identifiant) {
             if (video == undefined) {
                 const img = document.createElement('img');
                 img.setAttribute('src', `${path}/${image}`);
+                img.setAttribute('alt', `${name}`);
+                img.setAttribute('aria-label', `closeup view`);
                 figure.appendChild(img);
             }else{
                 const videoTag = document.createElement('video');
                 videoTag.setAttribute('src', `${path}/${video}`);
+                videoTag.setAttribute('title', `${name}`);
+                videoTag.setAttribute('aria-label', `closeup view`);
                 figure.appendChild(videoTag);
             }
             const figcaption = document.createElement('figcaption');
@@ -27,6 +31,7 @@ function albumFactory(data, name, identifiant) {
             span.textContent = likes;
             const i = document.createElement('i');
             i.className = 'fas fa-heart';
+            i.setAttribute('aria-label', 'likes');
             p.appendChild(span);
             p.appendChild(i);
             figcaption.appendChild(h3);

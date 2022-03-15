@@ -1,5 +1,6 @@
 function displayModal() {
     const modal = document.getElementById("contact_modal");
+    modal.firstElementChild.setAttribute('aria-labelledby', 'contact_photographer');
 	modal.style.display = "flex";
 }
 

@@ -104,9 +104,9 @@ function listenCloseupViewNavigation() {
     next.addEventListener('click', nextMedia);
 
     const keyPress = (e) =>{
-        if (e.keyCode === 37) {
+        if (e.key === 'ArrowLeft' && e.code === 'ArrowLeft' && e.keyCode === 37) {
             prevMedia();
-        } else if (e.keyCode === 39) {
+        } else if (e.key === 'ArrowRight' && e.code === 'ArrowRight' && e.keyCode === 39) {
             nextMedia();
         }
     };
