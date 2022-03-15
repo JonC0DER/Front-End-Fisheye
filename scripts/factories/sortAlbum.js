@@ -2,27 +2,47 @@ function sortAlbumFactory(){
     const album = document.querySelector('.album');
     const figures = document.querySelectorAll('.photo_video_album');
 
-    function arrayBuilder(type){
-        const numberType = (typeof type === 'number' && isFinite(type)) ;
-        const dateType = (type instanceof Date && !isNaN(type));
+    function arrayBuilder(elem = null, typeInit = null) {
+        let totest;
+        if (elem != null) { totest = elem; }
+        else if (typeInit != null) { totest = typeInit; }
+
+        const numberElem = (typeof totest === 'number' && isFinite(totest)) ;
+        const dateElem = (totest instanceof Date && !isNaN(totest));
         const regex = /^[A-Za-z]+$/;
-        const strType = regex.test(type);
+        const strElem = regex.test(totest);
+        const arrayType = [numberElem, dateElem, strElem];
 
-        const initArray = new Array();
-        figures.forEach(figure => {
-            let elemType;
-            if (numberType) {    
-                elemType = Number(figure.children[1].children[1].textContent);
-            } else if (dateType) {
-                elemType = new Date(figure.dataset['date']);
-            } else if(strType){
-                elemType = figure.children[1].children[0].textContent.split(' ')[0];
+        const arrayToReturn = new Array();
+        for(let i = 0; i < arrayType.length; i++){
+            if (arrayType[i] == true) {
+                figures.forEach(figure =>{
+                    if(i === 0){
+                        arrayToReturn.push(Number(figure.children[1].children[1].textContent));
+                    } else if(i === 1){
+                        arrayToReturn.push(new Date(figure.dataset['date']));
+                    } else if(i === 2){
+                        arrayToReturn.push(figure.children[1].children[0].textContent.split(' ')[0]);
+                    }
+                })   
             }
-            
-            initArray.push(elemType);
-        })
-
-        return (initArray);
+        }
+        return (arrayToReturn);
+    }
+   
+    function figuresArrayBuilder(inputArray){
+        let figuresArray = [];
+        for(let i =0; i < inputArray.length; i++){
+            const elemType = arrayBuilder(null, inputArray[i]);
+            figures.forEach((figure, index) => {
+                //console.log(`elemType : ${elemType[index]} inpurArray : ${inputArray[i]}`);
+                if (elemType[index] === inputArray[i]) {
+                    figure.setAttribute('tabindex', i);
+                    figuresArray.push(figure);
+                }
+            })
+        }
+        return (figuresArray);
     }
 
     function removeAlbumChildren(){
@@ -37,38 +57,26 @@ function sortAlbumFactory(){
         })
     }
 
-    function compare(x, y) {
-        return y - x;
-    }
-
     function byPopularity() {
-        let likesOrder = arrayBuilder(10);
-
-        let sortLikes = likesOrder.sort(compare);
-        let figuresArray = [];
-        for(let i =0; i < sortLikes.length; i++){
-            figures.forEach(figure => {
-                const likesV2 = Number(figure.children[1].children[1].textContent);
-                if (likesV2 === sortLikes[i]) {
-                    figure.setAttribute('tabindex', i);
-                    figuresArray.push(figure);
-                }
-            })
+        function compare(x, y) {
+            return y - x;
         }
+
+        let likesOrder = arrayBuilder(10);
+        let figuresArray = figuresArrayBuilder(likesOrder.sort(compare));
 
         removeAlbumChildren();
         rebuildAlbum(figuresArray);
     }
 
     function byDate() {
-        let datesOrder = arrayBuilder(new Date());
-
         function sortDates(date1, date2) {
           if (date1 > date2) return 1;
           if (date1 < date2) return -1;
           return 0;
         }
 
+        let datesOrder = arrayBuilder(new Date());
         let sortDatesOrder = datesOrder.sort(sortDates);
         let figuresArray = [];
         for(let i =0; i < sortDatesOrder.length; i++){
@@ -93,19 +101,8 @@ function sortAlbumFactory(){
     }
 
     function byAlphaOrder() {
-        let alphaOrder = arrayBuilder('str');
-
-        let sortAlphaOrder = alphaOrder.sort();
-        let figuresArray = [];
-        for (let i = 0; i < sortAlphaOrder.length; i++) {
-            figures.forEach(figure => {
-                const firstWord = figure.children[1].children[0].textContent.split(' ')[0];
-                if (firstWord === sortAlphaOrder[i]) {
-                    figure.setAttribute('tabindex', i);
-                    figuresArray.push(figure);
-                }
-            });
-        }
+        const alphaOrder = arrayBuilder('str');
+        const figuresArray = figuresArrayBuilder(alphaOrder.sort());
         
         removeAlbumChildren();
         rebuildAlbum(figuresArray);
