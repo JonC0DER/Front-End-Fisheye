@@ -14,19 +14,21 @@
   </head>
   <body>
     <header>
-        <a href="index.html">
+        <a href="index.html" tabindex="2">
           <img src="assets/images/logo.png" class="logo" alt="FishEye Home Page" />
         </a>
     </header>
     <main id="main">
       <div class="photograph-header">
         <div class="infos"></div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-        <div class="photographer-avatar"></div>
+        <div class="contact_btn_photographer">
+          <button class="contact_button" tabindex="3" onclick="displayModal()">Contactez-moi</button>
+          <div class="photographer-avatar"></div>
+        </div>
       </div>
       <div class="trie_album">
         <label for="trie">Trier par </label>
-        <select name="trie" id="trie">
+        <select name="trie" id="trie" tabindex="4">
           <option value="popularite">Popularité</option>
           <option value="date">Date</option>
           <option value="titre">Titre</option>
@@ -70,6 +72,7 @@
     <script src="scripts/factories/sortAlbum.js"></script>
     <script src="scripts/pages/fetchData.js"></script>
     <script src="scripts/pages/photographer.js"></script>
+    <script src="scripts/utils/listenKeyCode.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
     <script src="scripts/utils/selectSort.js"></script>
   </body>

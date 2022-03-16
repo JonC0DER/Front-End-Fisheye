@@ -5,4 +5,22 @@
         margin:auto;
         width: 100%;
     }
+    .photographer_section {
+        grid-template-columns: 1fr 1fr;
+        gap: 70px;
+        /*margin-top: 100px;*/
+    }
+
+    .contact_btn_photographer{
+        width: 40%;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .album{
+        justify-content: space-around;
+    }
+    .album figure{
+        width:30%;
+    }
 }

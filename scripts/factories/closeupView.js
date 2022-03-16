@@ -1,10 +1,12 @@
 function closeupViewFactory() {
     const album = document.querySelector('.album');
     if (album !== null) {
-        const cross = document.createElement('i');
-        cross.className = 'fas fa-times';
+        const cross = document.createElement('span');
+        //cross.className = 'fas fa-times';
+        cross.className = 'close_icon';
         cross.setAttribute('onclick', 'closeLightBox()');
         cross.setAttribute('role', 'button');
+        cross.setAttribute('tabindex', 0);
         cross.setAttribute('aria-label', 'Close dialog');
         const previous = document.createElement('div');
         previous.setAttribute('aria-label', 'previous image');

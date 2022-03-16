@@ -18,7 +18,7 @@
     align-items: center;
     justify-content: space-around;
     background-color: #FAFAFA;
-    height: 300px;
+    /*height: 300px;*/
     margin: 0 100px;
 }
 .infos .photographer-infos .photographer_name {
@@ -32,6 +32,9 @@
 .infos .photographer-infos .tagline{
     font-size: 18px;
     line-height: 23px;
+}
+.contact_btn_photographer{
+    display: flex;
 }
 
 .contact_button , #trie, #trie option{
@@ -114,18 +117,17 @@ form textarea {
     width:90%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
     margin: auto;
     margin-bottom: 80px;
 }
 
 .album figure{
-    width:27%;
     height: fit-content;
     transition: all .3s;
 }
 
-.album figure:hover{
+.album figure:hover,
+.album figure:focus{
     transform: scale(1.1);
 }
 
@@ -198,7 +200,9 @@ form textarea {
 /* -------------- lightbox-modal */
 .lightBox {
     position: fixed;
+    z-index: 1;
     top:0;
+    left:0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -207,12 +211,18 @@ form textarea {
     background-color: #FAFAFA;
 }
 
+.lightBox .close_icon,
 .lightBox i{
+    background-color:#901C1C;
+    /*background-image: url('../assets/icons/close.svg');*/
+    -webkit-mask-image: url('../assets/icons/close.svg');
+    mask-image: url('../assets/icons/close.svg');
     position: absolute;
+    width:42px;
+    height:42px;
     right:15px;
     top:15px;
     font-size: 40px;
-    color: #901C1C;
 }
 
 .lightBox figure{

@@ -13,10 +13,15 @@ function selectElemBuilder(){
     let selectLike = document.createElement('div');
     selectLike.textContent = options[0].textContent;
     selectLike.setAttribute('class', 'select-options');
+    selectLike.setAttribute('role', 'button');
+    selectLike.setAttribute('tabindex', 4);
+    selectLike.setAttribute('aria-label', 'select sort album option');
     selectLike.setAttribute('onclick', 'getSelectedValue()');
 
     let items = document.createElement('div');
     items.setAttribute('class', `select-items ${hideItems}`);
+    items.setAttribute('role', 'button');
+    items.setAttribute('aria-label', 'click sort option');
 
     options.forEach(option => {
         const opt = document.createElement('div');

@@ -35,9 +35,8 @@ function sortAlbumFactory(){
         for(let i =0; i < inputArray.length; i++){
             const elemType = arrayBuilder(null, inputArray[i]);
             figures.forEach((figure, index) => {
-                //console.log(`elemType : ${elemType[index]} inpurArray : ${inputArray[i]}`);
                 if (elemType[index] === inputArray[i]) {
-                    figure.setAttribute('tabindex', i);
+                    //figure.setAttribute('tabindex', i);
                     figuresArray.push(figure);
                 }
             })
@@ -89,7 +88,7 @@ function sortAlbumFactory(){
                     let month = (sortDatesOrder[i].getMonth() === compareDate.getMonth());
                     let year = (sortDatesOrder[i].getYear() === compareDate.getYear());
                     if(day && month && year) {
-                        figure.setAttribute('tabindex', i);
+                        //figure.setAttribute('tabindex', i);
                         figuresArray.push(figure);
                     }
                 }

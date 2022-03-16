@@ -19,10 +19,12 @@ async function photographerPage(identifiant, name, medias, users){
     const infosPhotographer = document.querySelector(".infos");
     const avatar = document.querySelector(".photographer-avatar");
     const price = document.querySelector('.total_likes-price');
+    let index = 4;
     medias.forEach( media => {
         const mediaAlbums = albumFactory(media, name, identifiant);
         const userAlbum = mediaAlbums.getUserAlbumDOM();
         if (userAlbum != undefined) {
+            userAlbum.setAttribute('tabindex', index++);
             albumDiv.appendChild(userAlbum);
         }
     });
@@ -41,10 +43,12 @@ async function photographerPage(identifiant, name, medias, users){
 }
 
 function listenFigure() {
+    const content = document.querySelector('.album');
     const figures = document.querySelectorAll('.photo_video_album');
     const likes = document.querySelector('.total_likes').childNodes[0];
     let totalLikes = 0; 
 
+    keyCodeListener(figures, content);
     function totalLikesUpdate(nbL) {
         totalLikes += nbL;
         likes.textContent = totalLikes;
@@ -117,7 +121,7 @@ function closeLightBox() {
     const lightBox = document.querySelector('.lightBox');
     const previous = document.querySelector('div.previous');
     const next = document.querySelector('div.next');
-    const cross = document.querySelector('.fas.fa-times');
+    const cross = document.querySelector('.close_icon');
     const figuresActive = document.querySelectorAll('figure.photo_video_album');
     figuresActive.forEach(figureActive => {
         figureActive.className = [
@@ -125,9 +129,9 @@ function closeLightBox() {
             figureActive.classList[1]
         ].join(' ');
     })
-    previous.removeEventListener('click', listenCloseupViewNavigation.prevMedia);
-    next.removeEventListener('click', listenCloseupViewNavigation.nextMedia);
-    document.removeEventListener('keydown', listenCloseupViewNavigation.keyPress);
+    previous.removeEventListener('click', listenCloseupViewNavigation);
+    next.removeEventListener('click', listenCloseupViewNavigation);
+    document.removeEventListener('keydown', listenCloseupViewNavigation);
     lightBox.removeChild(cross);
     lightBox.removeChild(previous);
     lightBox.removeChild(next);

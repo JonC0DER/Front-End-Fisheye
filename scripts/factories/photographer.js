@@ -1,3 +1,10 @@
+/**
+ *
+ *
+ * @param {*} data
+ * @param {*} [identifiant=null]
+ * @return {*} 
+ */
 function photographerFactory(data, identifiant = null) {
     const { name, id, city, country, tagline, price, portrait } = data;
     let picture = `assets/photographers/${portrait}`;
