@@ -23,7 +23,9 @@ function closeupViewFactory() {
         album.setAttribute('aria-label', 'image closeup view');
         album.setAttribute('role', 'dialog');
 
-        initVideo();
-        listenCloseupViewNavigation();
+        if (album.className == 'lightBox') {
+            initVideo();
+            listenCloseupViewNavigation();
+        }
     }
 }
