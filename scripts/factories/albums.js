@@ -29,7 +29,7 @@ function albumFactory(data, name, identifiant) {
             const span = document.createElement('span');
             span.className = 'likes';
             span.textContent = likes;
-            const i = document.createElement('i');
+            const i = document.createElement('span');
             i.className = 'fas fa-heart';
             i.setAttribute('aria-label', 'likes');
             p.appendChild(span);
