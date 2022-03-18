@@ -83,8 +83,10 @@ function listenCloseupViewNavigation() {
 
     const initFigure = () => {
         let figure = document.querySelector('.active');
-        figure.classList.remove('active');
-        return (figure);
+        if (figure) {
+            figure.classList.remove('active');
+            return (figure);
+        }
     };
 
     const prevMedia = () => {
@@ -112,6 +114,11 @@ function listenCloseupViewNavigation() {
             prevMedia();
         } else if (e.key === 'ArrowRight' && e.code === 'ArrowRight' && e.keyCode === 39) {
             nextMedia();
+        }else if (e.key === 'x') {
+            const cross = document.querySelector('.close_icon');
+            if (cross) {    
+                cross.click();
+            }
         }
     };
     document.addEventListener('keydown', keyPress);
