@@ -1,8 +1,10 @@
+/**
+ * construction de la lightBox
+ */
 function closeupViewFactory() {
     const album = document.querySelector('.album');
     if (album !== null) {
         const cross = document.createElement('span');
-        //cross.className = 'fas fa-times';
         cross.className = 'close_icon';
         cross.setAttribute('onclick', 'closeLightBox()');
         cross.setAttribute('role', 'button');

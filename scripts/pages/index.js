@@ -5,11 +5,7 @@ async function displayData(photographers) {
     photographers.forEach((photographer) => {
         const photographerModel = photographerFactory(photographer);
         const userCardDOM = photographerModel.getUserCardDOM();
-        if (index == 0) {
-            userCardDOM.setAttribute('tabindex', index);
-        } else {    
-            userCardDOM.setAttribute('tabindex', -1);
-        }
+        userCardDOM.setAttribute('tabindex', index ++);
         photographersSection.appendChild(userCardDOM);
     });
     listenArticle();
@@ -19,7 +15,9 @@ function listenArticle() {
     const content = document.querySelector('.photographer_section');
     const articles = document.querySelectorAll('article');
      
-    keyCodeListener(articles, content);
+    if(content){
+        keyCodeListener(articles, content);
+    }
 
     articles.forEach(article => {
         article.addEventListener("click", function(){

@@ -48,7 +48,11 @@ function listenFigure() {
     const likes = document.querySelector('.total_likes').childNodes[0];
     let totalLikes = 0; 
 
-    keyCodeListener(figures, content);
+    if (content) {
+        keyCodeListener(figures, content).removeListener();
+        keyCodeListener(figures, content);
+    }
+    
     function totalLikesUpdate(nbL) {
         totalLikes += nbL;
         likes.textContent = totalLikes;
@@ -76,52 +80,12 @@ function listenFigure() {
 }
 
 function listenCloseupViewNavigation() {
+    const lightBox = document.querySelector('.lightBox');
     const figures = document.querySelectorAll('.photo_video_album'); 
-    const arrayFigures = Array.from(figures);
-    const previous = document.querySelector('div.previous');
-    const next = document.querySelector('div.next');
 
-    const initFigure = () => {
-        let figure = document.querySelector('.active');
-        if (figure) {
-            figure.classList.remove('active');
-            return (figure);
-        }
-    };
-
-    const prevMedia = () => {
-        let index = arrayFigures.indexOf(initFigure());
-        if (!figures[index -1]){
-            figures[figures.length -1].className += ' active';
-        }else{
-            figures[index -1].className += ' active';
-        }
-    };
-    previous.addEventListener('click', prevMedia);
-    
-    const nextMedia = () => {
-        let index = arrayFigures.indexOf(initFigure());
-        if (!figures[index +1]){
-            figures[0].className += ' active';
-        }else{
-            figures[index +1].className += ' active';
-        }
-    };
-    next.addEventListener('click', nextMedia);
-
-    const keyPress = (e) =>{
-        if (e.key === 'ArrowLeft' && e.code === 'ArrowLeft' && e.keyCode === 37) {
-            prevMedia();
-        } else if (e.key === 'ArrowRight' && e.code === 'ArrowRight' && e.keyCode === 39) {
-            nextMedia();
-        }else if (e.key === 'x') {
-            const cross = document.querySelector('.close_icon');
-            if (cross) {    
-                cross.click();
-            }
-        }
-    };
-    document.addEventListener('keydown', keyPress);
+    if (lightBox) {    
+        keyCodeListener(figures, lightBox);
+    }
 }
 
 function closeLightBox() {
@@ -136,9 +100,6 @@ function closeLightBox() {
             figureActive.classList[1]
         ].join(' ');
     })
-    previous.removeEventListener('click', listenCloseupViewNavigation);
-    next.removeEventListener('click', listenCloseupViewNavigation);
-    document.removeEventListener('keydown', listenCloseupViewNavigation);
     lightBox.removeChild(cross);
     lightBox.removeChild(previous);
     lightBox.removeChild(next);

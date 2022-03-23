@@ -1,3 +1,10 @@
+/**
+ * construction de la galerie de média
+ * @param {*} data
+ * @param {*} name
+ * @param {*} identifiant
+ * @return {*} method getUserAlbumDOM
+ */
 function albumFactory(data, name, identifiant) {
     const {id, photographerId, title, image, video, likes, date, price} = data;
     const path = `assets/albums/${name}`;
