@@ -1,7 +1,8 @@
 .trie_album{
   display:flex;
-  margin: 10px 100px;
-  width:250px;
+  position: relative;
+  margin: 20px 100px;
+  width:550px;
 }
 
 .trie_album label {
@@ -12,9 +13,11 @@
   white-space: nowrap;
 }
 
-.trie_album select{
-  display: none;
-}
+/*.trie_album select{
+  position: absolute;
+  right: 0;
+  opacity: 1;
+}*/
 
 .trie_fake{
   font-size: 18px;
@@ -22,6 +25,7 @@
   font-weight: 700;
   color:#FFFFFF;
   width:180px;
+  height: fit-content;
   position: relative;
 }
 
@@ -37,7 +41,7 @@
 .select-options::after{
   content:'';
   position:absolute;
-  right:15px;
+  right:0px;
   width:8px;
   height: 8px;
   border-top: 3px solid #FFFFFF;
@@ -54,16 +58,20 @@
 
 .select-options, .select-items{
   width:100%;
+  display: block;
+}
+.select-items .list-item{
+  list-style: none;
 }
 
-.select-items div, .select-options {
+.select-items .list-item, .select-options {
   position:relative;
   box-sizing: border-box;
   padding:8px 15px 8px 15px;
   background:#901C1C;
 }
 
-.select-items div::before{
+.select-items .list-item::before{
   content: '';
   position:absolute;
   top:0;
@@ -75,7 +83,10 @@
 .select-items{
   position:absolute;
   z-index: 1;
-  top:100%;
+  /*top:100%;*/
+  margin: 0;
+  padding: 0;
+  left: 0;
   border-bottom-left-radius:5px;
   border-bottom-right-radius:5px;
   overflow:hidden;
@@ -90,8 +101,9 @@
   display:none;
 }
 
-.select-items div:hover,
+.select-items .list-item:hover,
 .select-option-selected{
   background: #DB8876;
   color:black;
+  cursor: pointer;
 }
