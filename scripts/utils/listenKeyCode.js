@@ -1,4 +1,6 @@
 function keyCodeListener(arrayElems, content) {
+    const arr = Array.from(arrayElems);
+    const one = 1;
     const KEYCODE = {
         LEFT : 37,
         RIGHT: 39,
@@ -6,17 +8,30 @@ function keyCodeListener(arrayElems, content) {
         TAB: 9,
         X : 88
     }
+
+    if (content.className === 'lightBox') {
+        const previousElem = document.querySelector('div.previous')
+            .addEventListener('click', previous);
+        const nextElem = document.querySelector('div.next')
+            .addEventListener('click', next);
+        console.log('listen prev/next');
+    }
+
+    content.addEventListener('keydown', keyPress);
+
     const removeListener = () =>{
         console.log('removeListener');
         content.removeListener('keydown', keyPress);
     }
 
     const closeDialog = () => {
-        const cross = document.querySelector('.close_icon');
-        if (cross) {
-            cross.click();
-            removeListener();
-        }
+        const cross = document.querySelectorAll('.close_icon');
+        cross.forEach(dialog => {
+            if (dialog) {
+                dialog.click()
+                removeListener();
+            }
+        }); 
     }
 
     const initFigure = () => {
@@ -37,7 +52,7 @@ function keyCodeListener(arrayElems, content) {
         }
     }
 
-    const keyPress = (event) =>{
+    function keyPress (event){
         event.preventDefault();
         switch (event.keyCode) {
             case KEYCODE.ENTER:
@@ -49,61 +64,68 @@ function keyCodeListener(arrayElems, content) {
             case KEYCODE.RIGHT || KEYCODE.TAB:
                 next();
                 break;
+            case KEYCODE.TAB:
+                focusElem(document.activeElement);
+                break;
             case KEYCODE.X:
                 closeDialog();
         }
     }
 
-    const enter = () => {
+    function enter () {
         const activeElem = document.activeElement;
-        const closeDialog = activeElem.getAttribute('aria-label');
+        //const closeDial = document.querySelector('.close_icon');
         let location = document.location;
-        if (location.pathname == '/index.html') {
+        if (location.pathname === '/' || location.pathname === '/index.html') {
             location.href = 'photographer.html?id='+activeElem.id+'&name='+activeElem.childNodes[1].textContent;
-        } else if(content.className == 'album' && location.pathname == '/photographer.html'){
-            if (activeElem.classList[activeElem.classList.length -1] != 'active') {
+        } else if(content.className === 'album' && location.pathname === '/photographer.html'){
+            if (activeElem.classList[activeElem.classList.length -1] !== 'active') {
                 activeElem.className += ' active';
             }
             closeupViewFactory();
-        }else if (content.className == 'lightBox' && closeDialog == 'Close dialog'){
-            activeElem.click(); 
-        }
+        }/*else if (closeDial){
+            closeDialog(); 
+        }*/
         
     }
-    
-    const previous = () => {
-        let activeElem = document.activeElement;
-        let prevElm = activeElem.previousElementSibling;
-        if (content.className === 'lightBox') {
-            activeElem = document.querySelector('figure.active');
-            if (activeElem === arrayElems[0]) {
-                prevElm = arrayElems[arrayElems.length -1];       
+
+    function activeElement (){
+        let activeElem;
+        content.childNodes.forEach(elem => {
+            if (elem === document.activeElement) {
+                activeElem = elem;
+            }else{
+                activeElem = document.querySelector('figure.active');
             }
-        }
-        focusElem(prevElm);
+        })
+        return (activeElem);
     }
 
-    const next = () => {
-        let activeElem = document.activeElement;
-        let nextElm = activeElem.nextElementSibling;
-        if (content.className === 'lightBox') {
-            activeElem = document.querySelector('figure.active');
-            if(activeElem === arrayElems[arrayElems.length -1]){
+    function previous () {
+        const activeElem = activeElement();
+        if (activeElem && (activeElem.localName === 'figure' || activeElem.localName === 'article')) {
+            let prevElm = arrayElems[arr.indexOf(activeElem) - one];
+            console.log(`one = ${one}`);
+            console.log(arr.indexOf(activeElem));
+            if (activeElem === arrayElems[0]) {
+                prevElm = arrayElems[arrayElems.length - one];       
+            }
+            focusElem(prevElm);
+        }
+    }
+
+    function next () {
+        const activeElem = activeElement();
+        if (activeElem && (activeElem.localName === 'figure' || activeElem.localName === 'article')) {
+            let nextElm = arrayElems[arr.indexOf(activeElem) + one];
+            console.log(`one = ${one}`);
+            console.log(arr.indexOf(activeElem));
+            if(activeElem === arrayElems[arrayElems.length - one]){
                 nextElm = arrayElems[0];
             }
+            focusElem(nextElm);
         }
-        focusElem(nextElm);
     }
-
-    if (content.className === 'lightBox') {
-        const previousElem = document.querySelector('div.previous')
-            .addEventListener('click', previous);
-        const nextElem = document.querySelector('div.next')
-            .addEventListener('click', next);
-        console.log('listen prev/next');
-    }
-
-    content.addEventListener('keydown', keyPress);
 
     return (removeListener);
 }
