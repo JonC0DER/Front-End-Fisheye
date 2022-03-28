@@ -49,7 +49,7 @@ function listenFigure() {
     let totalLikes = 0; 
 
     if (content) {
-        keyCodeListener(figures, content).removeListener();
+        //keyCodeListener(figures, content).removeListener();
         keyCodeListener(figures, content);
     }
     
@@ -70,9 +70,12 @@ function listenFigure() {
             closeupViewFactory();
         });
         contentLikes.addEventListener("click", function() {
-            nbLikes ++;
-            contentLikes.childNodes[0].textContent = nbLikes;
-            totalLikesUpdate(1);
+            if (contentLikes.className === 'likes-content') {
+                nbLikes ++;
+                contentLikes.childNodes[0].textContent = nbLikes;
+                totalLikesUpdate(1);
+                contentLikes.classList.remove('likes-content');
+            }
         });
 
         totalLikesUpdate(nbLikes);
@@ -109,12 +112,10 @@ function closeLightBox() {
 
 function getSelectedValue(){
     const select = document.querySelector('#trie');
-    const selectFakeOptions = document.querySelector('.select-items');
+    const selectOptions = document.querySelector('.select-options');
     const options = ["popularite", "date", "titre"];
 
-    for (let i = 0; i < selectFakeOptions.children.length; i++) {
-       selectFakeOptions.children[i].addEventListener('click', reorganize);
-    }
+    select.addEventListener('change', reorganize);
 
     function reorganize() {
         const setEvent = sortAlbumFactory();
