@@ -85,6 +85,9 @@ img.photographer_avatar {
     font-weight: 400;
     line-height: 12px;
 }
+.photographer_section article:hover .location,
+.photographer_section article:hover .tagline,
+.photographer_section article:hover .price,
 .photographer_section article:focus .location,
 .photographer_section article:focus .tagline,
 .photographer_section article:focus .price{

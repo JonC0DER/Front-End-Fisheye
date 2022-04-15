@@ -16,13 +16,13 @@ function listenArticle() {
     const articles = document.querySelectorAll('article');
      
     if(content){
+        console.log('keyListen');
         keyCodeListener(articles, content);
     }
 
     articles.forEach(article => {
         article.addEventListener("click", function(){
             document.location.href = 'photographer.html?id='+article.id+'&name='+article.childNodes[1].textContent;
-            //console.log("photographer id :: " + article.id);
         })
     })
 };

@@ -3,6 +3,10 @@ function sleep(ms){
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function firsLetterUpperCase(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
 function initVideo() {
     const videos = document.querySelectorAll('video');
     videos.forEach(video =>{
@@ -48,10 +52,7 @@ function listenFigure() {
     const likes = document.querySelector('.total_likes').childNodes[0];
     let totalLikes = 0; 
 
-    if (content) {
-        //keyCodeListener(figures, content).removeListener();
-        keyCodeListener(figures, content);
-    }
+    keyCodeListener(figures, content);
     
     function totalLikesUpdate(nbL) {
         totalLikes += nbL;
@@ -110,25 +111,57 @@ function closeLightBox() {
     initVideo();
 }
 
+function initCustomSelect() {
+    const select = document.querySelector('#trie');
+    const trieAlbum = document.querySelector('.trie_album');
+    const customBuild = customSelectFactory(select);
+    const customSelect = customBuild.buildCustomSelect();
+
+    if (customSelect) {
+        trieAlbum.appendChild(customSelect);    
+    }
+
+    trieAlbum.addEventListener('mouseover', function () {
+        customSelectBehavior();
+    })
+    
+}
+
 function getSelectedValue(){
     const select = document.querySelector('#trie');
-    const selectOptions = document.querySelector('.select-options');
+    const customSelectValue = document.querySelector('.select-options');
     const options = ["popularite", "date", "titre"];
+    let theValue ;
 
-    select.addEventListener('change', reorganize);
+    select.addEventListener('change', function () {
+        theValue = select.value.toLowerCase();
+        reorganize();
+    });
+    customSelectValue.addEventListener('change', function () {
+        theValue = customSelectValue.textContent.toLowerCase(); 
+        reorganize();
+    });
+
+    function setValue() {
+        select.value = theValue;
+        customSelectValue.textContent = theValue;
+    }
 
     function reorganize() {
+        setValue();
         const setEvent = sortAlbumFactory();
-        if (select.value == options[0]) {
+        if (theValue == options[0]) {
             setEvent.byPopularity();
-        } else if (select.value == options[1]) {    
+        } else if (theValue == options[1]) {    
             setEvent.byDate();
-        } else if (select.value == options[2]) {
+        } else if (theValue == options[2]) {
             setEvent.byAlphaOrder();
         }   
     }
     
 }
+initCustomSelect();
+getSelectedValue();
 
 async function albumInit(){
     const get = location.search.split('=');

@@ -6,7 +6,7 @@ function keyCodeListener(arrayElems, content) {
         RIGHT: 39,
         ENTER: 13,
         TAB: 9,
-        X : 88
+        ESCAPE : 27
     }
 
     if (content.className === 'lightBox') {
@@ -14,42 +14,31 @@ function keyCodeListener(arrayElems, content) {
             .addEventListener('click', previous);
         const nextElem = document.querySelector('div.next')
             .addEventListener('click', next);
-        console.log('listen prev/next');
     }
 
     content.addEventListener('keydown', keyPress);
 
-    const removeListener = () =>{
+    function removeListener(){
         console.log('removeListener');
         content.removeListener('keydown', keyPress);
     }
 
-    const closeDialog = () => {
+    function closeDialog () {
+        console.log('close dialog');
         const cross = document.querySelectorAll('.close_icon');
         cross.forEach(dialog => {
-            if (dialog) {
+            //if (dialog) {
                 dialog.click()
-                removeListener();
-            }
+            //}
         }); 
     }
 
-    const initFigure = () => {
-        let figure = document.querySelector('.active');
-        if (figure) {
-            figure.classList.remove('active');
-            return (figure);
-        }
-    }
-
-    const focusElem = (elemToFocus) => {
-        if (elemToFocus) {
-            initFigure();
-            elemToFocus.classList.add('active');
-            //if (content.className !== 'lightBox') {
-                elemToFocus.focus();
-            //}
-        }
+    function initFigure () {
+        arrayElems.forEach(elem => {
+            if (elem.classList.contains('active')) {
+                elem.classList.remove('active');
+            }
+        })
     }
 
     function keyPress (event){
@@ -61,20 +50,19 @@ function keyCodeListener(arrayElems, content) {
             case KEYCODE.LEFT:
                 previous();
                 break;
-            case KEYCODE.RIGHT || KEYCODE.TAB:
+            case KEYCODE.RIGHT:
                 next();
                 break;
             case KEYCODE.TAB:
                 focusElem(document.activeElement);
                 break;
-            case KEYCODE.X:
+            case KEYCODE.ESCAPE:
                 closeDialog();
         }
     }
 
     function enter () {
         const activeElem = document.activeElement;
-        //const closeDial = document.querySelector('.close_icon');
         let location = document.location;
         if (location.pathname === '/' || location.pathname === '/index.html') {
             location.href = 'photographer.html?id='+activeElem.id+'&name='+activeElem.childNodes[1].textContent;
@@ -83,31 +71,46 @@ function keyCodeListener(arrayElems, content) {
                 activeElem.className += ' active';
             }
             closeupViewFactory();
-        }/*else if (closeDial){
-            closeDialog(); 
-        }*/
-        
+        }
     }
 
+    function focusElem(elemToFocus) {
+        if (elemToFocus) {
+            console.log('on focus');
+            initFigure();
+            elemToFocus.classList.add('active');
+            //if (content.className !== 'lightBox') {
+                elemToFocus.focus();
+            //}
+        }
+    }
+    
     function activeElement (){
-        let activeElem;
-        content.childNodes.forEach(elem => {
-            if (elem === document.activeElement) {
-                activeElem = elem;
-            }else{
-                activeElem = document.querySelector('figure.active');
-            }
-        })
-        return (activeElem);
+        const dAE = document.activeElement;
+        let artFig;
+        if (content.classList.contains('album') || content.classList.contains('lightBox')) {    
+            artFig = 'figure';
+        }else if(content.classList.contains('photographer_section')){
+            artFig = 'article';
+        }
+
+        console.log('contient des ' + artFig);
+        if (dAE.localName === artFig){
+            console.log(`activeElement ok`)
+            const activeElem = dAE;
+            activeElem.classList.add('active'); 
+            return (activeElem);
+        }
     }
 
     function previous () {
         const activeElem = activeElement();
+        // console.log(`element id => ${activeElem.id}`);
         if (activeElem && (activeElem.localName === 'figure' || activeElem.localName === 'article')) {
             let prevElm = arrayElems[arr.indexOf(activeElem) - one];
-            console.log(`one = ${one}`);
-            console.log(arr.indexOf(activeElem));
-            if (activeElem === arrayElems[0]) {
+            console.log(`activeElem => ${arr.indexOf(activeElem)} prev => ${arr.indexOf(activeElem) - one}`);
+            //if (activeElem === arrayElems[0]) {
+            if(arr.indexOf(activeElem) <= 0){
                 prevElm = arrayElems[arrayElems.length - one];       
             }
             focusElem(prevElm);
@@ -116,11 +119,12 @@ function keyCodeListener(arrayElems, content) {
 
     function next () {
         const activeElem = activeElement();
+        // console.log(`element id => ${activeElem.id}`);
         if (activeElem && (activeElem.localName === 'figure' || activeElem.localName === 'article')) {
             let nextElm = arrayElems[arr.indexOf(activeElem) + one];
-            console.log(`one = ${one}`);
-            console.log(arr.indexOf(activeElem));
-            if(activeElem === arrayElems[arrayElems.length - one]){
+            console.log(`activeElem => ${arr.indexOf(activeElem)} next => ${arr.indexOf(activeElem) + one}`);
+            //if(activeElem === arrayElems[arrayElems.length - one]){
+            if(arr.indexOf(activeElem) >= arrayElems.length - one){
                 nextElm = arrayElems[0];
             }
             focusElem(nextElm);

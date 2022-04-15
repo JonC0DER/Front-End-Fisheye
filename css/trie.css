@@ -20,17 +20,29 @@
 }*/
 
 .trie_fake{
-  font-size: 18px;
+  display: none;
+  font-size: 20px;
   line-height: 24px;
   font-weight: 700;
   color:#FFFFFF;
-  width:180px;
+  width:170px;
   height: fit-content;
   position: relative;
 }
 
+.trie_album:hover .trie_fake{
+  display: block;
+}
+
+.trie_album:hover #trie {
+  display: none;
+}
+
 .select-options{
   user-select:none;
+  width: 170px;
+  height: 50px;
+  padding:11px;
   border-top-left-radius:5px;
   border-top-right-radius:5px;
 }
@@ -41,7 +53,7 @@
 .select-options::after{
   content:'';
   position:absolute;
-  right:0px;
+  right:8px;
   width:8px;
   height: 8px;
   border-top: 3px solid #FFFFFF;
@@ -53,7 +65,7 @@
 
 .select-options.select-arrow-up::after{
   transform: rotate(-134deg);
-  top:12px;
+  top:17px;
 }
 
 .select-options, .select-items{
@@ -67,7 +79,7 @@
 .select-items .list-item, .select-options {
   position:relative;
   box-sizing: border-box;
-  padding:8px 15px 8px 15px;
+  padding:13px 15px 8px 15px;
   background:#901C1C;
 }
 

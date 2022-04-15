@@ -7,9 +7,10 @@
     <link href="css/tablet.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
+    <!--link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    -->
     <title>Fisheye - photographe </title>
   </head>
   <body>
@@ -38,11 +39,11 @@
             <li class="list-item" role="option" aria-label="sort option">Titre</li>
           </ul>
         </ul>
-      -->
-        <select name="trie" id="trie" tabindex="4" onchange="getSelectedValue()">
-          <option class="select-options" value="popularite">Popularité</option>
-          <option class="select-options" value="date">Date</option>
-          <option class="select-options" value="titre">Titre</option>
+        -->
+        <select name="trie" id="trie" tabindex="4">
+          <option value="popularite">Popularité</option>
+          <option value="date">Date</option>
+          <option value="titre">Titre</option>
         </select>
       </div>
       <div class="album"> </div>
@@ -80,9 +81,11 @@
     <script src="scripts/factories/albums.js"></script>
     <script src="scripts/factories/closeupView.js"></script>
     <script src="scripts/factories/sortAlbum.js"></script>
+    <script src="scripts/factories/customSelect.js"></script>
     <script src="scripts/pages/fetchData.js"></script>
     <script src="scripts/pages/photographer.js"></script>
     <script src="scripts/utils/listenKeyCode.js"></script>
+    <script src="scripts/utils/customSelectBehavior.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
   </body>
 </html>
