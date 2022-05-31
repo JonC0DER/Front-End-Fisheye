@@ -50,9 +50,14 @@ function listenFigure() {
     const content = document.querySelector('.album');
     const figures = document.querySelectorAll('.photo_video_album');
     const likes = document.querySelector('.total_likes').childNodes[0];
-    let totalLikes = 0; 
-
-    keyCodeListener(figures, content);
+    let totalLikes = 0;
+    let albumListener;
+    
+    function getListener() {
+        albumListener = keyCodeListener(figures, content);
+        return albumListener;
+    }
+    getListener();
     
     function totalLikesUpdate(nbL) {
         totalLikes += nbL;
@@ -68,8 +73,10 @@ function listenFigure() {
             if (mediaElem.classList.length === 2) {
                 mediaElem.className += " active";
             }
+            albumListener.removeListener();
             closeupViewFactory();
         });
+
         contentLikes.addEventListener("click", function() {
             if (contentLikes.className === 'likes-content') {
                 nbLikes ++;
@@ -81,14 +88,19 @@ function listenFigure() {
 
         totalLikesUpdate(nbLikes);
     })
+
+    return {getListener}
 }
+
+// open listen & close lightBox
+let lightBoxListener;
 
 function listenCloseupViewNavigation() {
     const lightBox = document.querySelector('.lightBox');
     const figures = document.querySelectorAll('.photo_video_album'); 
 
     if (lightBox) {    
-        keyCodeListener(figures, lightBox);
+        lightBoxListener = keyCodeListener(figures, lightBox);
     }
 }
 
@@ -108,9 +120,13 @@ function closeLightBox() {
     lightBox.removeChild(previous);
     lightBox.removeChild(next);
     lightBox.className = "album";
+    lightBoxListener.removeListener();
+    lightBoxListener = null;
     initVideo();
+    listenFigure().getListener();
 }
 
+// initialisation du select custom
 function initCustomSelect() {
     const select = document.querySelector('#trie');
     const trieAlbum = document.querySelector('.trie_album');
@@ -124,7 +140,6 @@ function initCustomSelect() {
     trieAlbum.addEventListener('mouseover', function () {
         customSelectBehavior();
     })
-    
 }
 
 function getSelectedValue(){
@@ -134,21 +149,19 @@ function getSelectedValue(){
     let theValue ;
 
     select.addEventListener('change', function () {
-        theValue = select.value.toLowerCase();
-        reorganize();
-    });
-    customSelectValue.addEventListener('change', function () {
-        theValue = customSelectValue.textContent.toLowerCase(); 
+        setValue(select.value.toLowerCase());
         reorganize();
     });
 
-    function setValue() {
+    function setValue(customVal = null) {
+        if(customVal){
+            theValue = customVal;
+        }
         select.value = theValue;
-        customSelectValue.textContent = theValue;
+        customSelectValue.textContent = firsLetterUpperCase(theValue);
     }
 
     function reorganize() {
-        setValue();
         const setEvent = sortAlbumFactory();
         if (theValue == options[0]) {
             setEvent.byPopularity();
@@ -159,6 +172,7 @@ function getSelectedValue(){
         }   
     }
     
+    return {setValue, reorganize}
 }
 initCustomSelect();
 getSelectedValue();
