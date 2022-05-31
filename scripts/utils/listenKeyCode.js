@@ -1,11 +1,12 @@
-function keyCodeListener(arrayElems, content) {
+function keyCodeListener(arrayElems = null, content = null) {
     const arr = Array.from(arrayElems);
     const one = 1;
+    const localNames = ['figure', 'article', 'input', 'textarea'];
     const KEYCODE = {
         LEFT : 37,
         RIGHT: 39,
         ENTER: 13,
-        TAB: 9,
+        Lkey : 76,
         ESCAPE : 27
     }
 
@@ -16,25 +17,31 @@ function keyCodeListener(arrayElems, content) {
             .addEventListener('click', next);
     }
 
+    if (content.className === 'modal') {
+        focusElem(arrayElems[0]);  
+    }
+
     content.addEventListener('keydown', keyPress);
 
     function removeListener(){
         console.log('removeListener');
-        content.removeListener('keydown', keyPress);
+        content.removeEventListener('keydown', keyPress);
     }
 
     function closeDialog () {
-        console.log('close dialog');
         const cross = document.querySelectorAll('.close_icon');
-        cross.forEach(dialog => {
-            //if (dialog) {
-                dialog.click()
-            //}
-        }); 
+        
+        if(content.className === 'modal' || content.className === 'lightBox') {
+            cross.forEach(dialog => { dialog.click() }); 
+        }
+    }
+
+    function getContentArray(){
+        return [content, content.classList];
     }
 
     function initFigure () {
-        arrayElems.forEach(elem => {
+        arr.forEach(elem => {
             if (elem.classList.contains('active')) {
                 elem.classList.remove('active');
             }
@@ -53,17 +60,28 @@ function keyCodeListener(arrayElems, content) {
             case KEYCODE.RIGHT:
                 next();
                 break;
-            case KEYCODE.TAB:
-                focusElem(document.activeElement);
+            case KEYCODE.Lkey:
+                likeActive();
                 break;
             case KEYCODE.ESCAPE:
                 closeDialog();
+            }
+        }
+        
+    function likeActive() {
+        const activeElem = document.activeElement;
+        
+        if (activeElem && (activeElem.localName === 'figure')) {
+            const like = activeElem.children[1].children[1];
+            console.log(like.classList);
+            like.click();
         }
     }
 
     function enter () {
         const activeElem = document.activeElement;
         let location = document.location;
+        
         if (location.pathname === '/' || location.pathname === '/index.html') {
             location.href = 'photographer.html?id='+activeElem.id+'&name='+activeElem.childNodes[1].textContent;
         } else if(content.className === 'album' && location.pathname === '/photographer.html'){
@@ -73,43 +91,60 @@ function keyCodeListener(arrayElems, content) {
             closeupViewFactory();
         }
     }
+    
+    function enable(){
+        document.onkeydown = function (e) {
+            return true;
+        }
+    }
 
     function focusElem(elemToFocus) {
         if (elemToFocus) {
             console.log('on focus');
             initFigure();
             elemToFocus.classList.add('active');
-            //if (content.className !== 'lightBox') {
-                elemToFocus.focus();
-            //}
+            elemToFocus.focus({preventScroll:false});
+            if (elemToFocus.localName === 'input' || elemToFocus.localName === 'textarea') {
+                enable();
+            }
         }
     }
     
     function activeElement (){
         const dAE = document.activeElement;
         let artFig;
+        let artFigAlternative;
+
         if (content.classList.contains('album') || content.classList.contains('lightBox')) {    
             artFig = 'figure';
+        }else if(content.classList.contains('modal')){
+            artFig = 'input';
+            artFigAlternative = 'textarea';
         }else if(content.classList.contains('photographer_section')){
             artFig = 'article';
         }
 
-        console.log('contient des ' + artFig);
-        if (dAE.localName === artFig){
-            console.log(`activeElement ok`)
-            const activeElem = dAE;
-            activeElem.classList.add('active'); 
-            return (activeElem);
+        if (dAE.localName === artFig || artFigAlternative){
+            dAE.classList.add('active'); 
+            return (dAE);
         }
+    }
+    
+    function undefinedActiveElement(setElem) {
+        setElem = activeElement();
+        return setElem;
     }
 
     function previous () {
-        const activeElem = activeElement();
-        // console.log(`element id => ${activeElem.id}`);
-        if (activeElem && (activeElem.localName === 'figure' || activeElem.localName === 'article')) {
+        let activeElem = activeElement();
+        
+        if (!activeElem) {
+            activeElem = undefinedActiveElement();
+        }
+        
+        if (activeElem && localNames.includes(activeElem.localName)) {
             let prevElm = arrayElems[arr.indexOf(activeElem) - one];
-            console.log(`activeElem => ${arr.indexOf(activeElem)} prev => ${arr.indexOf(activeElem) - one}`);
-            //if (activeElem === arrayElems[0]) {
+        
             if(arr.indexOf(activeElem) <= 0){
                 prevElm = arrayElems[arrayElems.length - one];       
             }
@@ -118,12 +153,15 @@ function keyCodeListener(arrayElems, content) {
     }
 
     function next () {
-        const activeElem = activeElement();
-        // console.log(`element id => ${activeElem.id}`);
-        if (activeElem && (activeElem.localName === 'figure' || activeElem.localName === 'article')) {
+        let activeElem = activeElement();
+        
+        if (!activeElem) {
+            activeElem = undefinedActiveElement();
+        }
+        
+        if (activeElem && localNames.includes(activeElem.localName)) {
             let nextElm = arrayElems[arr.indexOf(activeElem) + one];
-            console.log(`activeElem => ${arr.indexOf(activeElem)} next => ${arr.indexOf(activeElem) + one}`);
-            //if(activeElem === arrayElems[arrayElems.length - one]){
+        
             if(arr.indexOf(activeElem) >= arrayElems.length - one){
                 nextElm = arrayElems[0];
             }
@@ -131,5 +169,5 @@ function keyCodeListener(arrayElems, content) {
         }
     }
 
-    return (removeListener);
+    return {removeListener, getContentArray};
 }
