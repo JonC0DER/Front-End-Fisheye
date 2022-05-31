@@ -7,10 +7,10 @@
     <link href="css/tablet.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <!--link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-    -->
+    
     <title>Fisheye - photographe </title>
   </head>
   <body>
@@ -58,22 +58,26 @@
 			<div class="modal">
 				<header>
           <h2 id="contact_photographer">Contactez-moi</h2>
-          <img class="close_icon" src="assets/icons/close.svg" onclick="closeModal()" alt="Close contact form"/>
+          <span class="close_icon" onclick="closeModal()" role="button" aria-label="Close dialog"></span>
+          <!--img class="close_icon" src="assets/icons/close.svg" onclick="closeModal()" alt="Close contact form"/-->
         </header>
 				<form>
 					<div>
 						<label for="first">Prénom</label>
 						<input type="text" id="first" pattern="[a-z]{2,20}" 
-            title="Votre Prénom en minuscule"/>
+            title="Votre Prénom en minuscule" tabindex="0"/>
 						<label for='last'>Nom</label>
 						<input type="text" id="last" pattern="[a-z]{2,20}"
-            title="Votre Nom en minuscule"/>
+            title="Votre Nom en minuscule" tabindex="1"/>
 						<label for="email">Email</label>
-						<input type="email" id="email"/>
+						<input type="email" id="email" tabindex="2"/>
 						<label for="message">Votre message</label>
-						<textarea id="message" maxlength="300" minlength="30"></textarea>
+						<textarea id="message" maxlength="300" minlength="30" tabindex="3"></textarea>
 					</div>
-          <button class="contact_button" onclick="submitForm()">Envoyer</button>
+          <!--
+            <button class="contact_button">Envoyer</button>
+          -->
+          <input class="contact_button" type="submit" value="Envoyer" tabindex="4">
 				</form>
 			</div>
 		</div>
