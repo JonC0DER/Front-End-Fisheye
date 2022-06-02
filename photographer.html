@@ -29,17 +29,6 @@
       </div>
       <div class="trie_album">
         <label for="trie">Trier par </label>
-        <!--
-        <ul class="trie_fake" id="trie" name="trie" role="listbox" 
-        tabindex="4" aria-label="select sort album option">
-          <span class="select-options select-arrow-up">choisissez</span>
-          <ul class="select-items select-items-hidden">
-            <li class="list-item select-option-selected" role="option" aria-label="sort option">Popularite</li>
-            <li class="list-item" role="option" aria-label="sort option">Date</li>
-            <li class="list-item" role="option" aria-label="sort option">Titre</li>
-          </ul>
-        </ul>
-        -->
         <select name="trie" id="trie" tabindex="4">
           <option value="popularite">Popularité</option>
           <option value="date">Date</option>
@@ -65,19 +54,19 @@
 					<div>
 						<label for="first">Prénom</label>
 						<input type="text" id="first" pattern="[a-z]{2,20}" 
-            title="Votre Prénom en minuscule" tabindex="0"/>
+            title="Votre Prénom en minuscule" tabindex="1"/>
 						<label for='last'>Nom</label>
 						<input type="text" id="last" pattern="[a-z]{2,20}"
-            title="Votre Nom en minuscule" tabindex="1"/>
+            title="Votre Nom en minuscule" tabindex="2"/>
 						<label for="email">Email</label>
-						<input type="email" id="email" tabindex="2"/>
+						<input type="email" id="email" tabindex="3"/>
 						<label for="message">Votre message</label>
-						<textarea id="message" maxlength="300" minlength="30" tabindex="3"></textarea>
+						<textarea id="message" maxlength="300" minlength="30" tabindex="4"></textarea>
 					</div>
           <!--
             <button class="contact_button">Envoyer</button>
           -->
-          <input class="contact_button" type="submit" value="Envoyer" tabindex="4">
+          <input class="contact_button" type="submit" value="Envoyer" tabindex="5">
 				</form>
 			</div>
 		</div>
