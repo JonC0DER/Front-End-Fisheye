@@ -7,7 +7,7 @@ let exitContactForm = null;
 
 function exitFrom(event) {
     const exit = formContainer.children[0].children[1];
-    console.log(event.keyCode)
+    //console.log(event.keyCode)
     if (event.keyCode === 27) {   
         exit.click();
     }
