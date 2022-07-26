@@ -33,6 +33,7 @@ function albumFactory(data, name, identifiant) {
             h3.textContent = title;
             const p = document.createElement('p');
             p.className = 'likes-content';
+            p.setAttribute('accesskey', 'l');
             const span = document.createElement('span');
             span.className = 'likes';
             span.textContent = likes;
