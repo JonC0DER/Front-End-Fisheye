@@ -20,16 +20,25 @@ function initVideo() {
 
 async function photographerPage(identifiant, name, medias, users){
     const albumDiv = document.querySelector(".album");
+    const lightBoxDiv = document.querySelector(".lightBox div.figure-container");
     const infosPhotographer = document.querySelector(".infos");
     const avatar = document.querySelector(".photographer-avatar");
     const price = document.querySelector('.total_likes-price');
-    let index = 4;
+    let index = 5;
     medias.forEach( media => {
         const mediaAlbums = albumFactory(media, name, identifiant);
         const userAlbum = mediaAlbums.getUserAlbumDOM();
         if (userAlbum != undefined) {
             userAlbum.setAttribute('tabindex', index++);
             albumDiv.appendChild(userAlbum);
+        }
+    });
+    medias.forEach( media => {
+        const mediaAlbums = albumFactory(media, name, identifiant);
+        const userAlbum = mediaAlbums.getUserAlbumDOM();
+        if (userAlbum != undefined) {
+            userAlbum.setAttribute('tabindex', index++);
+            lightBoxDiv.appendChild(userAlbum);
         }
     });
     users.forEach( user => {
@@ -48,32 +57,60 @@ async function photographerPage(identifiant, name, medias, users){
 
 function listenFigure() {
     const content = document.querySelector('.album');
-    const figures = document.querySelectorAll('.photo_video_album');
+    const figures = document.querySelectorAll('.album .photo_video_album');
     const likes = document.querySelector('.total_likes').childNodes[0];
+    const figContainer = document.querySelectorAll('.figure-container figure');
     let totalLikes = 0;
     let albumListener;
     
-    function getListener() {
+    /*function getListener() {
         albumListener = keyCodeListener(figures, content);
         return albumListener;
-    }
-    getListener();
+    }*/
+    //getListener();
     
     function totalLikesUpdate(nbL) {
         totalLikes += nbL;
         likes.textContent = totalLikes;
     }
+    
+    function addActiveClass(id) {
+        figContainer.forEach(figure =>{
+            if (figure.classList.contains(id)) {
+                figure.classList.add('active');
+            }
+        })
+    }
+
+    function likePic(event) {
+        const activeElem = document.activeElement;
+        if (event.keyCode === 76) {
+            console.log('likes this pic')
+            activeElem.children[1].children[1].click()
+        }
+        if (event.keyCode === 13) {
+            console.log('enter the ligthBox')
+            addActiveClass(activeElem.classList[1])
+            //activeElem.click();
+            closeupViewFactory();
+        }
+    }
 
     figures.forEach(mediaElem => {
         const media = mediaElem.childNodes[0];
+        //const likesContent = mediaElem.childNodes[1].childNodes[1];
         const contentLikes = mediaElem.childNodes[1].childNodes[1];
         let nbLikes = Number(contentLikes.childNodes[0].textContent);
 
+        content.addEventListener('keydown', likePic);
+        //content.removeEventListener('keydown', likePic);
+
         media.addEventListener("click", function() {
             if (mediaElem.classList.length === 2) {
-                mediaElem.className += " active";
+                const id = mediaElem.classList[1];
+                addActiveClass(id);         
             }
-            albumListener.removeListener();
+            //albumListener.removeListener();
             closeupViewFactory();
         });
 
@@ -89,44 +126,48 @@ function listenFigure() {
         totalLikesUpdate(nbLikes);
     })
 
-    return {getListener}
+    //return {getListener}
 }
 
 // open listen & close lightBox
 let lightBoxListener;
 
 function listenCloseupViewNavigation() {
-    const lightBox = document.querySelector('.lightBox');
-    const figures = document.querySelectorAll('.photo_video_album'); 
+    //const lightBox = document.querySelector('.lightBox');
+    const figureContainer = document.querySelector('.figure-container'); 
+    const figures = document.querySelectorAll('.figure-container figure'); 
 
-    if (lightBox) {    
-        lightBoxListener = keyCodeListener(figures, lightBox);
+    if (figureContainer) {    
+        lightBoxListener = keyCodeListener(figures, figureContainer);
     }
 }
 
 function closeLightBox() {
     const lightBox = document.querySelector('.lightBox');
-    const previous = document.querySelector('div.previous');
-    const next = document.querySelector('div.next');
-    const cross = document.querySelector('.close_icon');
-    const figuresActive = document.querySelectorAll('figure.photo_video_album');
+    const album = document.querySelector('.album');
+    const figuresActive = document.querySelectorAll('.figure-container figure');
     figuresActive.forEach(figureActive => {
-        figureActive.className = [
-            figureActive.classList[0], 
-            figureActive.classList[1]
-        ].join(' ');
+        if (figureActive.classList.contains('active')) {
+            figureActive.classList.remove('active');
+        }
     })
-    lightBox.removeChild(cross);
-    lightBox.removeChild(previous);
-    lightBox.removeChild(next);
-    lightBox.className = "album";
+    
+    lightBox.classList.add('dsp-none');
+    lightBox.classList.remove('dsp-flex');
+    album.classList.remove('dsp-none');
+    album.classList.add('dsp-flex');
     lightBoxListener.removeListener();
-    lightBoxListener = null;
     initVideo();
-    listenFigure().getListener();
+    listenFigure()//.getListener();
 }
 
-// initialisation du select custom
+//************************** */ initialisation du select custom
+//init custom select behavior
+function initCSB() {
+    const csb = customSelectBehavior();
+    return csb;    
+}
+
 function initCustomSelect() {
     const select = document.querySelector('#trie');
     const trieAlbum = document.querySelector('.trie_album');
@@ -138,7 +179,7 @@ function initCustomSelect() {
     }
 
     trieAlbum.addEventListener('mouseover', function () {
-        customSelectBehavior();
+        initCSB().launchCSB();
     })
 }
 
@@ -159,6 +200,7 @@ function getSelectedValue(){
         }
         select.value = theValue;
         customSelectValue.textContent = firsLetterUpperCase(theValue);
+        initCSB().hideSelectedElem(customSelectValue);
     }
 
     function reorganize() {
@@ -169,7 +211,8 @@ function getSelectedValue(){
             setEvent.byDate();
         } else if (theValue == options[2]) {
             setEvent.byAlphaOrder();
-        }   
+        }
+        setEvent.reorganizeTabindex();
     }
     
     return {setValue, reorganize}
