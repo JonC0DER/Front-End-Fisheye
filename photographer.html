@@ -35,7 +35,16 @@
           <option value="titre">Titre</option>
         </select>
       </div>
-      <div class="album"> </div>
+      <div class="album dsp-flex"> </div>
+      <div class="lightBox dsp-none" aria-label="image closeup view" role="dialog"> 
+        <span class="close_icon" onclick="closeLightBox()"
+        role="button" tabindex="0" aria-label="Close dialog"></span>
+        <div class="previous" aria-label="previous image" role="link"></div>
+        <div class="figure-container"></div>
+        <div class="next" aria-label="next image" role="link"></div>
+      </div>
+      <!--
+      -->
       <div class="total_likes-price">
         <p class="total_likes">
           <span class="likes"></span>
@@ -76,9 +85,9 @@
     <script src="scripts/factories/sortAlbum.js"></script>
     <script src="scripts/factories/customSelect.js"></script>
     <script src="scripts/pages/fetchData.js"></script>
-    <script src="scripts/pages/photographer.js"></script>
     <script src="scripts/utils/listenKeyCode.js"></script>
     <script src="scripts/utils/customSelectBehavior.js"></script>
     <script src="scripts/utils/contactForm.js"></script>
+    <script src="scripts/pages/photographer.js"></script>
   </body>
 </html>
