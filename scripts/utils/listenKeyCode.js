@@ -104,9 +104,9 @@ function keyCodeListener(arrayElems = null, content = null) {
             initFigure();
             elemToFocus.classList.add('active');
             elemToFocus.focus({preventScroll:false});
-            if (elemToFocus.localName === 'input' || elemToFocus.localName === 'textarea') {
+            /*if (elemToFocus.localName === 'input' || elemToFocus.localName === 'textarea') {
                 enable();
-            }
+            }*/
         }
     }
     
