@@ -28,28 +28,48 @@ function customSelectBehavior(){
         customOptions.classList.add(hide);
         customValue.classList.add(arrowUp, bottomRadius);
     }
-
     //customValue.addEventListener('mouseout', closeCustomSelect());
 
-    customValue.addEventListener('click', function() {
-        if(open === false){ 
-            openCustomSelect();
-            open = true;
-        } else{
-            closeCustomSelect();
-            open = false;
-        }
-        //customOptions.classList.contains(hide) ? openCustomSelect() : closeCustomSelect();
-    })
-
-    customOptionsItem.forEach(fakeOpt => {
-        fakeOpt.addEventListener('click', function () {
-            resetFakeOpt();
-            customValue.textContent = firsLetterUpperCase(fakeOpt.textContent);
-            fakeOpt.classList.add(hide);
-            console.log(`fakeopt.txt : ${fakeOpt.textContent.toLocaleLowerCase()}`)
-            setValueToAll.setValue(fakeOpt.textContent);
-            setValueToAll.reorganize();
+    function hideSelectedElem(elem) {
+        resetFakeOpt();
+        customOptionsItem.forEach(fakeOpt => {
+            if (elem.textContent.toLowerCase() === fakeOpt.textContent) {
+                fakeOpt.classList.add(hide);
+            }
         })
-    })
+    }
+
+    function openCloseCustomSelect() {    
+        customValue.addEventListener('click', function() {
+            if(open === false){ 
+                openCustomSelect();
+                open = true;
+            } else{
+                closeCustomSelect();
+                open = false;
+            }
+            //customOptions.classList.contains(hide) ? openCustomSelect() : closeCustomSelect();
+        })
+    }
+
+    function eachFakeOptEvent() {        
+        customOptionsItem.forEach(fakeOpt => {
+            fakeOpt.addEventListener('click', function () {
+                resetFakeOpt();
+                customValue.textContent = firsLetterUpperCase(fakeOpt.textContent);
+                fakeOpt.classList.add(hide);
+                //console.log(`fakeopt.txt : ${fakeOpt.textContent.toLocaleLowerCase()}`)
+                setValueToAll.setValue(fakeOpt.textContent);
+                setValueToAll.reorganize();
+            })
+        })
+    }
+
+    // launch custom select behavior
+    function launchCSB() {
+        openCloseCustomSelect();
+        eachFakeOptEvent();
+    }
+
+    return {hideSelectedElem, openCloseCustomSelect, eachFakeOptEvent, launchCSB};
 }
