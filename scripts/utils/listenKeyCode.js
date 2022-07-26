@@ -5,12 +5,12 @@ function keyCodeListener(arrayElems = null, content = null) {
     const KEYCODE = {
         LEFT : 37,
         RIGHT: 39,
-        ENTER: 13,
-        Lkey : 76,
+        //ENTER: 13,
+        //Lkey : 76,
         ESCAPE : 27
     }
 
-    if (content.className === 'lightBox') {
+    if (content.className === 'figure-container') {
         const previousElem = document.querySelector('div.previous')
             .addEventListener('click', previous);
         const nextElem = document.querySelector('div.next')
@@ -31,7 +31,7 @@ function keyCodeListener(arrayElems = null, content = null) {
     function closeDialog () {
         const cross = document.querySelectorAll('.close_icon');
         
-        if(content.className === 'modal' || content.className === 'lightBox') {
+        if(content.className === 'modal' || content.className === 'figure-container') {
             cross.forEach(dialog => { dialog.click() }); 
         }
     }
@@ -51,24 +51,24 @@ function keyCodeListener(arrayElems = null, content = null) {
     function keyPress (event){
         event.preventDefault();
         switch (event.keyCode) {
-            case KEYCODE.ENTER:
-                enter();
-                break;
             case KEYCODE.LEFT:
                 previous();
                 break;
             case KEYCODE.RIGHT:
                 next();
                 break;
+            /*case KEYCODE.ENTER:
+                enter();
+                break;
             case KEYCODE.Lkey:
                 likeActive();
-                break;
+                break;*/
             case KEYCODE.ESCAPE:
                 closeDialog();
             }
         }
         
-    function likeActive() {
+    /*function likeActive() {
         const activeElem = document.activeElement;
         
         if (activeElem && (activeElem.localName === 'figure')) {
@@ -84,20 +84,20 @@ function keyCodeListener(arrayElems = null, content = null) {
         
         if (location.pathname === '/' || location.pathname === '/index.html') {
             location.href = 'photographer.html?id='+activeElem.id+'&name='+activeElem.childNodes[1].textContent;
-        } else if(content.className === 'album' && location.pathname === '/photographer.html'){
-            if (activeElem.classList[activeElem.classList.length -1] !== 'active') {
-                activeElem.className += ' active';
-            }
+        } else if(content.classList[0] === 'album' && location.pathname === '/photographer.html'){
+            const lightBoxFigContainer = document.querySelectorAll('.figure-container figure');
+            lightBoxFigContainer.forEach(figure => {
+                console.log(activeElem.classList[1])
+                if(figure.classList.contains(activeElem.classList[1])){
+                    figure.classList.add('active');
+                    focusElem(figure);
+                    figure.click()
+                }
+            })
             closeupViewFactory();
         }
-    }
+    }*/
     
-    function enable(){
-        document.onkeydown = function (e) {
-            return true;
-        }
-    }
-
     function focusElem(elemToFocus) {
         if (elemToFocus) {
             console.log('on focus');
@@ -115,8 +115,15 @@ function keyCodeListener(arrayElems = null, content = null) {
         let artFig;
         let artFigAlternative;
 
-        if (content.classList.contains('album') || content.classList.contains('lightBox')) {    
+        if (content.classList.contains('album')) {    
             artFig = 'figure';
+        }else if(content.classList.contains('figure-container')) {    
+            artFig = 'figure';
+            arr.forEach(elem => {
+                if (elem.classList.contains('active')) {
+                    focusElem(elem);
+                }
+            })
         }else if(content.classList.contains('modal')){
             artFig = 'input';
             artFigAlternative = 'textarea';
@@ -141,6 +148,7 @@ function keyCodeListener(arrayElems = null, content = null) {
         if (!activeElem) {
             activeElem = undefinedActiveElement();
         }
+        console.log(activeElem)
         
         if (activeElem && localNames.includes(activeElem.localName)) {
             let prevElm = arrayElems[arr.indexOf(activeElem) - one];
