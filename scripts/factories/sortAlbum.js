@@ -1,6 +1,14 @@
 function sortAlbumFactory(){
     const album = document.querySelector('.album');
-    const figures = document.querySelectorAll('.photo_video_album');
+    const figures = document.querySelectorAll('.album .photo_video_album');
+
+    function reorganizeTabindex() {
+        let index = 5;
+        figures.forEach(figure => {
+            figure.tabIndex = index;
+            index++;
+        })    
+    }
 
     function arrayBuilder(elem = null, typeInit = null) {
         let totest;
@@ -106,5 +114,5 @@ function sortAlbumFactory(){
         removeAlbumChildren();
         rebuildAlbum(figuresArray);
     }
-    return {byPopularity, byDate, byAlphaOrder}
+    return {byPopularity, byDate, byAlphaOrder, reorganizeTabindex}
 }
