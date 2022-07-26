@@ -119,7 +119,6 @@ form textarea {
 
 .album{
     width:90%;
-    display: flex;
     flex-wrap: wrap;
     margin: auto;
     margin-bottom: 80px;
@@ -202,6 +201,17 @@ form textarea {
     line-height: 31px;
  }
 /* -------------- lightbox-modal */
+.dsp-none{ display: none;}
+.dsp-flex{ display: flex;}
+
+.figure-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+}
+
 .lightBox {
     position: fixed;
     z-index: 1;
@@ -209,7 +219,6 @@ form textarea {
     left:0;
     width: 100%;
     height: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #FAFAFA;
