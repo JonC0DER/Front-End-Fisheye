@@ -5,7 +5,7 @@ function keyCodeListener(arrayElems = null, content = null) {
     const KEYCODE = {
         LEFT : 37,
         RIGHT: 39,
-        //ENTER: 13,
+        ENTER: 13,
         //Lkey : 76,
         ESCAPE : 27
     }
@@ -57,10 +57,10 @@ function keyCodeListener(arrayElems = null, content = null) {
             case KEYCODE.RIGHT:
                 next();
                 break;
-            /*case KEYCODE.ENTER:
+            case KEYCODE.ENTER:
                 enter();
                 break;
-            case KEYCODE.Lkey:
+            /*case KEYCODE.Lkey:
                 likeActive();
                 break;*/
             case KEYCODE.ESCAPE:
@@ -76,7 +76,7 @@ function keyCodeListener(arrayElems = null, content = null) {
             console.log(like.classList);
             like.click();
         }
-    }
+    }*/
 
     function enter () {
         const activeElem = document.activeElement;
@@ -96,7 +96,7 @@ function keyCodeListener(arrayElems = null, content = null) {
             })
             closeupViewFactory();
         }
-    }*/
+    }
     
     function focusElem(elemToFocus) {
         if (elemToFocus) {
