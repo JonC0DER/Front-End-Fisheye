@@ -1,6 +1,9 @@
 # Base de code du projet P6 - Parcours Front-end
 
-## Démarrer le projet
+## Réalisation d'un site accessible
 
-Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
-
+### lien achecker:
+- page home
+https://achecker.achecks.ca/checker/index.php
+- page gallerie
+https://jonc0der.github.io/Front-End-Fisheye/photographer.html?id=930&name=Ellie-Rose%20Wilkens
