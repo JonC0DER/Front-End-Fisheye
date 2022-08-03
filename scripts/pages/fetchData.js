@@ -1,4 +1,8 @@
-async function getPhotographers() {
+/**
+ * get data
+ * @return {function}
+ */
+async function getPhotographers() { // eslint-disable-line
     // Penser à remplacer par les données récupérées dans le json
     /* const photographersData = [
         {
@@ -20,11 +24,11 @@ async function getPhotographers() {
             "portrait": "account.png"
         },
     ]*/
-    const photographersData = fetch('data/photographers.json')
-    // et bien retourner le tableau photographers seulement une fois
-    .then( res => res.json() )
-    .catch(err => console.error(err));
-    
-    return (photographersData)
-    //return({photographers:[...photographersData]})
+    const photographersData = fetch("data/photographers.json")
+        // et bien retourner le tableau photographers seulement une fois
+        .then((res) => res.json())
+        .catch((err) => console.error(err));
+
+    return photographersData;
+    // return({photographers:[...photographersData]})
 }
