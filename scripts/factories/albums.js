@@ -21,6 +21,8 @@ function albumFactory(data, name, identifiant) { // eslint-disable-line
             figure.setAttribute("data-date", date);
             if (video == undefined) {
                 const altText = `${image.split(".")[0].split("_").join(" ")}`;
+                figure.setAttribute("role", "image");
+                figure.setAttribute("aria-label", `${altText}`);
                 const img = document.createElement("img");
                 img.setAttribute("src", `${path}/${image}`);
                 img.setAttribute("alt", `${altText}`);
@@ -29,6 +31,8 @@ function albumFactory(data, name, identifiant) { // eslint-disable-line
             } else {
                 const videoTag = document.createElement("video");
                 const titleText = `${video.split(".")[0].split("_").join(" ")}`;
+                figure.setAttribute("role", "vidéo");
+                figure.setAttribute("aria-label", `${titleText}`);
                 videoTag.setAttribute("src", `${path}/${video}`);
                 videoTag.setAttribute("title", titleText);
                 videoTag.setAttribute("aria-label", `closeup view`);
@@ -41,6 +45,7 @@ function albumFactory(data, name, identifiant) { // eslint-disable-line
             const p = document.createElement("p");
             p.className = "likes-content";
             p.setAttribute("accesskey", "l");
+            p.setAttribute("aria-label", "liké cette image");
             const span = document.createElement("span");
             span.className = "likes";
             span.textContent = likes;
