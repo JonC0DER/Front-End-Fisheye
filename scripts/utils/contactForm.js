@@ -16,9 +16,7 @@ function exitFrom(event) {
     }
 }
 
-/**
- * affiche la modale
- */
+/** */
 function displayModal() { // eslint-disable-line
     const formContainer = modal.children[0];
     modal.firstElementChild.setAttribute(
@@ -31,9 +29,7 @@ function displayModal() { // eslint-disable-line
     tabindexDisable();
 }
 
-/**
- * ferme la modale
- */
+/** */
 function closeModal() { // eslint-disable-line
     modal.style.display = "none";
     if (contactListener !== null) {

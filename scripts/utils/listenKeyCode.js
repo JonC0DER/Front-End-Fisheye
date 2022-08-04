@@ -1,5 +1,4 @@
 /**
- *
  * @param {*} arrayElems
  * @param {*} content
  * @return {function}
@@ -50,14 +49,14 @@ function keyCodeListener(arrayElems = null, content = null) { // eslint-disable-
     }
 
     /**
-     *
+     * a usage du dev, verifie le content écouté
      * @return {Element}
      */
     function getContentArray() {
         return [content, content.classList];
     }
 
-    /** */
+    /** réinitialise la gallerie en suprimant la class active de toutes les figures */
     function initFigure() {
         arr.forEach((elem) => {
             if (elem.classList.contains("active")) {
@@ -147,7 +146,7 @@ function keyCodeListener(arrayElems = null, content = null) { // eslint-disable-
     }
 
     /**
-     *
+     * s'assure que l'élémént focus() appartient à la gallerie
      * @return {*}
      */
     function activeElement() {

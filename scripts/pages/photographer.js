@@ -75,9 +75,7 @@ async function photographerPage(identifiant, name, medias, users) {
     listenFigure();
 }
 
-/**
- *
- */
+/** */
 function listenFigure() {
     const content = document.querySelector(".album");
     const figures = document.querySelectorAll(".album .photo_video_album");
@@ -165,7 +163,7 @@ function listenFigure() {
 let lightBoxListener;
 
 /**
- * listent event pour la lightbox
+ * écoute des évènements pour la lightbox
  */
 function listenCloseupViewNavigation() { // eslint-disable-line
     // const lightBox = document.querySelector('.lightBox');
@@ -182,9 +180,7 @@ function listenCloseupViewNavigation() { // eslint-disable-line
     }
 }
 
-/**
- * close lightbox
- */
+/** */
 function closeLightBox() { // eslint-disable-line
     const lightBox = document.querySelector(".lightBox");
     const album = document.querySelector(".album");
@@ -205,8 +201,8 @@ function closeLightBox() { // eslint-disable-line
 }
 
 //* ************************* */ initialisation du select custom
-// init custom select behavior
 /**
+ * init custom select behavior
  * @return {csb}
  */
 function initCSB() {
